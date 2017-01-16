@@ -1,0 +1,62 @@
+body {
+    background:#fff;
+    font-family:Helvetica,Arial;
+    font-size:14px;
+}
+
+.container {
+	width: 800px;
+	height: 395px;
+	margin: auto;
+	background: #adadad;
+	position: relative;
+}
+
+.bomb, .time {
+	font-size: 20px;
+}
+
+
+/* Bomb HUD */
+.bomb {
+	position: absolute;
+	top: 20px;
+	left: 50px;
+}
+
+/* Time HUD */
+.time {
+	position: absolute;
+	top: 20px;
+	right: 50px;
+}
+
+/* Game HUD */
+.game {
+	width: 780px;
+	height: 300px;
+	background: #ececec;
+	position: absolute;
+	top: 75px;
+	left: 10px;
+	font-size: 0;
+	cursor: pointer;
+}
+
+.cell {
+	width: 19px;
+	height: 19px;
+	border: 0.5px solid #000;
+	display: inline-block;
+	background: #ececec;
+	transition: 0.3s;
+	font-style: 14px;
+}
+.cell:hover {
+	background: #8d8d8d;
+	cursor: pointer;
+}
+
+.cell-bomb {
+	background: red;
+}
