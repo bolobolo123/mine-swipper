@@ -49,8 +49,11 @@ body {
 	border: 0.5px solid #000;
 	display: inline-block;
 	background: #ececec;
+  vertical-align: top;
 	transition: 0.3s;
-	font-style: 14px;
+	font-size: 14px;
+  text-align: center;
+  line-height: 19px;
 }
 .cell:hover {
 	background: #8d8d8d;
