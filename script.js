@@ -12,7 +12,8 @@ var rows = 15
 bombs = {
     posX: []
     , posY: []
-  , }
+  , };
+
   /* Reset all the bombs */
 function reset() {
   for (var i = 0; i < $cell.length; i++) {
@@ -37,6 +38,7 @@ function generate_bomb() {
   }
 }
 generate_bomb();
+
 // Generate all EventListeners
 for (var i = 0; i < $cell.length; i++) $cell[i].addEventListener('click', detect);
 
@@ -51,31 +53,16 @@ function detect(e) {
   else {
     _index = parseInt(this.getAttribute('data-index')) - 1;
     // There's nothing around
-    if ($cell[_index + 1].classList.contains('cell-bomb')) {
-      bombAround++;
-    }
-    if ($cell[_index - 1].classList.contains('cell-bomb')) {
-      bombAround++;
-    }
-    if ($cell[(_index - cols)].classList.contains('cell-bomb')) {
-      bombAround++;
-    }
-    if ($cell[(_index - cols) + 1].classList.contains('cell-bomb')) {
-      bombAround++;
-    }
-    if ($cell[(_index - cols) - 1].classList.contains('cell-bomb')) {
-      bombAround++;
-    }
-    if ($cell[(_index + cols)].classList.contains('cell-bomb')) {
-      bombAround++;
-    }
-    if ($cell[(_index + cols) + 1].classList.contains('cell-bomb')) {
-      bombAround++;
-    }
-    if ($cell[(_index + cols) - 1].classList.contains('cell-bomb')) {
-      bombAround++;
-    }
-    if (bombAround > 0) {
+    if (_index + 1 <= $cell.length - 1) 	  if ($cell[_index + 1].classList.contains('cell-bomb')) bombAround++;
+    if (_index - 1 >= 0)					  if ($cell[_index - 1].classList.contains('cell-bomb')) bombAround++;
+    if (_index - cols >= 0)					  if ($cell[(_index - cols)].classList.contains('cell-bomb')) bombAround++;
+    if (_index - cols + 1 >= 0)				  if ($cell[(_index - cols) + 1].classList.contains('cell-bomb')) bombAround++;
+    if (_index - cols - 1 >= 0)				  if ($cell[(_index - cols) - 1].classList.contains('cell-bomb')) bombAround++;
+    if (_index + cols  <= $cell.length - 1)	  if ($cell[(_index + cols)].classList.contains('cell-bomb')) bombAround++;
+    if (_index + cols + 1 <= $cell.length - 1)if ($cell[(_index + cols) + 1].classList.contains('cell-bomb')) bombAround++;
+    if (_index + cols - 1 <= $cell.length - 1)if ($cell[(_index + cols) - 1].classList.contains('cell-bomb')) bombAround++;
+
+    if (_index + 1)if (bombAround > 0) {
       $bomb.innerHTML = bombAround;
       this.innerHTML = bombAround;
       this.style.background = "green";
@@ -85,6 +72,8 @@ function detect(e) {
      }
     }
   }
+
+  // Put a flag on r-click
 for (var i = 0; i < $cell.length; i++) $cell[i].addEventListener('contextmenu', rclick);
 function rclick(e)
 {
@@ -98,37 +87,65 @@ function rclick(e)
     this.classList.add('flag');
   }
 }
-/* Reveal cell */
+
+/* Reveal cell if there no bomb around */
 function reveal(_index) {
   if (!$cell[_index].classList.contains('cell-bomb')) {
     $cell[_index].style.background="green";
     _index = parseInt($cell[_index].getAttribute('data-index')) - 1;
     if (!$cell[_index + 1].classList.contains('cell-bomb')) {
       $cell[_index + 1].style.background="green";
+      if (bombArounds[_index + 1] > 0) $cell[_index + 1].innerHTML = bombArounds[_index + 1];
     }
     if (!$cell[_index - 1].classList.contains('cell-bomb')) {
       $cell[_index - 1].style.background="green";
+      if (bombArounds[_index - 1] > 0) $cell[_index - 1].innerHTML = bombArounds[_index - 1];
     }
     if (!$cell[(_index - cols)].classList.contains('cell-bomb')) {
       $cell[_index - cols].style.background="green";
+      if (bombArounds[_index - cols] > 0) $cell[_index - cols].innerHTML = bombArounds[_index - cols];
+
     }
     if (!$cell[(_index - cols) + 1].classList.contains('cell-bomb')) {
       $cell[(_index - cols) + 1].style.background="green";
+      if (bombArounds[(_index - cols) + 1] > 0) $cell[(_index - cols) + 1].innerHTML = bombArounds[_index - cols + 1];
+
     }
     if (!$cell[(_index - cols) - 1].classList.contains('cell-bomb')) {
       $cell[(_index - cols) - 1].style.background="green";
+      if (bombArounds[(_index - cols) - 1] > 0) $cell[(_index - cols) - 1].innerHTML = bombArounds[_index - cols + 1];
     }
     if (!$cell[(_index + cols)].classList.contains('cell-bomb')) {
       $cell[(_index + cols)].style.background="green";
+      if (bombArounds[(_index + cols)] > 0) $cell[(_index + cols)].innerHTML = bombArounds[_index + cols];
+
     }
     if (!$cell[(_index + cols) + 1].classList.contains('cell-bomb')) {
       $cell[(_index + cols) + 1].style.background="green";
+      if (bombArounds[(_index + cols) + 1] > 0) $cell[(_index + cols) + 1].innerHTML = bombArounds[_index + cols + 1];
     }
     if (!$cell[(_index + cols) - 1].classList.contains('cell-bomb')) {
       $cell[(_index + cols) - 1].style.background="green";
+      if (bombArounds[(_index + cols) - 1] > 0) $cell[(_index + cols) - 1].innerHTML = bombArounds[_index + cols - 1];
     }
   }}
+var bombArounds = [];
   /* Function Random Generator */
   function rdm(min, max) {
     return Math.random() * (max - min) + min;
+  }
+
+  for (var i = 0; i < $cell.length; i++)
+  {
+  	var bombAround = 0;
+    // There's nothing around
+    if (i + 1 <= $cell.length-1) 		if ($cell[i + 1].classList.contains('cell-bomb')) bombAround++;
+    if (i - 1 >= 0 ) 			 		if ($cell[i - 1].classList.contains('cell-bomb')) bombAround++;
+	if (i - cols>= 0 ) 			 		if ($cell[(i - cols)].classList.contains('cell-bomb')) bombAround++;
+   	if (i - cols + 1 >= 0) 		 		if ($cell[(i - cols) + 1].classList.contains('cell-bomb')) bombAround++;
+    if (i - cols - 1 >= 0) 				if ($cell[(i - cols) - 1].classList.contains('cell-bomb')) bombAround++;
+    if (i + cols <= $cell.length-1)		if ($cell[(i + cols)].classList.contains('cell-bomb')) bombAround++;
+    if (i + cols + 1 <= $cell.length-1) if ($cell[(i + cols) + 1].classList.contains('cell-bomb')) bombAround++;
+    if (i + cols - 1 <= $cell.length-1) if ($cell[(i + cols) - 1].classList.contains('cell-bomb')) bombAround++;
+    bombArounds[i] = bombAround;
   }
