@@ -85,7 +85,19 @@ function detect(e) {
      }
     }
   }
-
+for (var i = 0; i < $cell.length; i++) $cell[i].addEventListener('contextmenu', rclick);
+function rclick(e)
+{
+  if(this.classList.contains('flag'))
+    {
+      this.classList.remove('flag');
+      
+    }
+  else 
+  {
+    this.classList.add('flag');
+  }
+}
 /* Reveal cell */
 function reveal(_index) {
   if (!$cell[_index].classList.contains('cell-bomb')) {

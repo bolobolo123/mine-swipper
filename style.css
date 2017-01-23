@@ -55,9 +55,12 @@ body {
   text-align: center;
   line-height: 19px;
 }
-.cell:hover {
+/*.cell:hover {
 	background: #8d8d8d;
 	cursor: pointer;
+}*/
+.flag {
+  background: blue;
 }
 
 .cell-bomb {
