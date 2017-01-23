@@ -74,19 +74,23 @@ function detect(e) {
     }
     if ($cell[(_index + cols) - 1].classList.contains('cell-bomb')) {
       bombAround++;
-    } {
+    }
+    if (bombAround > 0) {
       $bomb.innerHTML = bombAround;
       this.innerHTML = bombAround;
+      this.style.background = "green";
+     }
+     if (bombAround == 0) {
+     	reveal(_index);
+     }
     }
   }
-}
-/* Reveal cell */
-for (var i = 0; i < $cell.length; i++) $cell[i].addEventListener('click', reveal);
 
-function reveal(e) {
-  if (!this.classList.contains('cell-bomb')) {
-    this.style.background="green";
-    _index = parseInt(this.getAttribute('data-index')) - 1;
+/* Reveal cell */
+function reveal(_index) {
+  if (!$cell[_index].classList.contains('cell-bomb')) {
+    $cell[_index].style.background="green";
+    _index = parseInt($cell[_index].getAttribute('data-index')) - 1;
     if (!$cell[_index + 1].classList.contains('cell-bomb')) {
       $cell[_index + 1].style.background="green";
     }
